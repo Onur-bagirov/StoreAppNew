@@ -37,7 +37,7 @@ namespace StoreApp.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdProduct(int id)
         {
-            return Ok(await Sender.Send(new GetByIdCategoryQueryRequest { Id = id }));
+            return Ok(await Sender.Send(new GetByIdProductQueryRequest { Id = id }));
         }
     }
 }

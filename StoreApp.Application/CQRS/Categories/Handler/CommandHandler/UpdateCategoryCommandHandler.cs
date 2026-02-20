@@ -24,8 +24,8 @@ namespace StoreApp.Application.CQRS.Categories.Handler.CommandHandler
         {
             var category = await _unitOfWork.CategoryRepository.GetByIdAsync(request.Id);
 
-            if(category != null)
-            {
+            if (category != null)
+            {   
                 category.Name = request.Name;
                 _unitOfWork.CategoryRepository.Update(category);
                 await _unitOfWork.SaveChangesAsync();

@@ -23,10 +23,20 @@ namespace StoreApp.Application.CQRS.Categories.Handler.CommandHandler
         public async Task<ResponseModel<DeleteCategoryCommandResponse>> Handle(DeleteCategoryCommandRequest request,CancellationToken cancellationToken)
         {
             var category = await _unitOfWork.CategoryRepository.GetByIdAsync(request.Id);
+            var products = _unitOfWork.ProductRepository.GetAll().Where(p => p.CategoryId == request.Id && !p.IsDeleted).ToList();
 
-            if(category != null)
+
+            if (category != null)
             {
                 _unitOfWork.CategoryRepository.Delete(request.Id);
+                await _unitOfWork.SaveChangesAsync();
+
+                foreach (var product in products)
+                {
+                    product.IsDeleted = true;
+                    _unitOfWork.ProductRepository.Update(product);
+                }
+
                 await _unitOfWork.SaveChangesAsync();
 
                 var response = new DeleteCategoryCommandResponse

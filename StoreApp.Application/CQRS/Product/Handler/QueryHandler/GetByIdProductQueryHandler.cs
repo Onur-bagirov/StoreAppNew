@@ -1,4 +1,5 @@
-﻿using StoreApp.Application.CQRS.Categories.Query.Request;
+﻿using MediatR;
+using StoreApp.Application.CQRS.Categories.Query.Request;
 using StoreApp.Application.CQRS.Categories.Query.Response;
 using StoreApp.Application.CQRS.Product.Query.Request;
 using StoreApp.Application.CQRS.Product.Query.Respones;
@@ -7,7 +8,7 @@ using StoreApp.Repository.Comman;
 
 namespace StoreApp.Application.CQRS.Product.Handler.QueryHandler
 {
-    class GetByIdProductQueryHandler
+    class GetByIdProductQueryHandler : IRequestHandler<GetByIdProductQueryRequest, ResponseModel<GetByIdProductQueryResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
 

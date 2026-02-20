@@ -7,5 +7,4 @@ public class BaseEntity
     public DateTime? UpdatedDate { get; set; }
     public DateTime? DeletedDate { get; set; }
     public bool IsDeleted { get; set; }
-
 }
